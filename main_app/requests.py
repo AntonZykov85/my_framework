@@ -38,6 +38,7 @@ class PostRequest(ParserData):
         if data:
             data_string = data.decode(encoding='utf-8')
             result = self.parse_input_data(data_string)
+            print(result)
         return result
 
     def get_request_parameters(self, environ):
