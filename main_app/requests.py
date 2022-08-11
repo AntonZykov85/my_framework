@@ -8,8 +8,8 @@ class ParserData:
         """
         result_data = {}
         if data:
-            parametres = data.split('&')
-            for items in parametres:
+            parameters = data.split('&')
+            for items in parameters:
                 key, value = items.split('=')
                 result_data[key] = value
         return result_data
@@ -37,6 +37,7 @@ class PostRequest(ParserData):
         result = {}
         if data:
             data_string = data.decode(encoding='utf-8')
+            print(f'str after decode: {data_string}')
             result = self.parse_input_data(data_string)
             print(result)
         return result
