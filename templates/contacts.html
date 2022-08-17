@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %} Contact Us {% endblock %}
+{% block body %}
+    <div style="flex: 1 1 auto">
+        <form action="" method="post">
+            <h1>Мы вам обязательно ответим.</h1>
+            <fieldset>
+                <legend>Оставьте нам сообщение</legend>
+                <p><label class="title" for="name">Тема:</label>
+                    <input type="text" name="name" id="name"><br />
+                    <label class="title" for="email">Ваш email:</label>
+                    <input type="text" name="email" id="email">
+                </p>
+                <p>
+                    <textarea name="message" cols="100" rows="10" >Текст сообщения: </textarea>
+                </p>
+            </fieldset>
+            <div class="submit"><input type="submit" value="отправить" /></div>
+        </form>
+    </div>
+{% endblock %}
