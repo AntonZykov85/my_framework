@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+
+<head>
+    <meta charset="UTF-8">
+<!--    блок с заголовком страницы-->
+    <title>{% block title %} {% endblock %}</title>
+<!--    блок со стилями-->
+    {% block style %} {% include "components/styles.html" %} {% endblock %}
+</head>
+
+<body>
+<!--блок с меню -->
+    {% block menu %} {% include "components/menu.html" %} {% endblock %}
+<!--блок с телом страницы:-->
+    {% block body %} {% endblock %}
+<!--блок с футером-->
+    {% block footer %} {% include "components/footer.html" %} {% endblock %}
+</body>
+
+</html>
