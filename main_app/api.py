@@ -20,6 +20,9 @@ class API:
         # return response(environ, start_response)
         path = environ['PATH_INFO']
 
+        # if not path.endswith('/'):
+        #     path += '/'
+
         request = {}
 
         # get request method from environ
@@ -32,7 +35,7 @@ class API:
         if method == 'POST':
             data = PostRequest().get_request_parameters(environ)
             request['data'] = data
-            print(f'post request: {API(data)}')
+            print(f'post request: {API.decode_value(data)}')
 
         if method == 'GET':
             req_param = GetRequest.get_request_param(environ)
@@ -57,11 +60,11 @@ class API:
     #     response.text = f'Hello user {user_agent}'
     #     return response
 
-    # @staticmethod
-    # def decode_value(data):
-    #     new_data = {}
-    #     for k, v in data.items():
-    #         fixed_value = bytes(v.replace('%', '=').replace("+", " ", 'UTF-8'))
-    #         fixed_value_str = quopri.decodestring(fixed_value).decode('UTF-8')
-    #         new_data[k] = fixed_value_str
-    #     return new_data
+    @staticmethod
+    def decode_value(data):
+        new_data = {}
+        for k, v in data.items():
+            fixed_value = bytes(v.replace('%', '=').replace("+", " "), 'UTF-8')
+            fixed_value_str = quopri.decodestring(fixed_value).decode('UTF-8')
+            new_data[k] = fixed_value_str
+        return new_data
