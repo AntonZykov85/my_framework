@@ -1,7 +1,5 @@
 from datetime import date
-from views import Home, About
-
-'''front controller'''
+from views import Home, About, Contacts, NotFound, Datetable, DisciplineList, CreateDiscipline, CreateCategory, CategoriesList, DisciplineCopy
 
 def secret_front(request):
     request['data'] = date.today
@@ -12,6 +10,13 @@ def other_fronts(request):
 fronts = [secret_front, other_fronts]
 
 routes = {
-    '/' : Home(),
-    'about' : About()
+    '/': Home(),
+    '/about/': About(),
+    '/contacts/': Contacts(),
+    '/Datetable/': Datetable(),
+    '/disciplines/': DisciplineList(),
+    '/categories/': CategoriesList(),
+    '/create_discipline/': CreateDiscipline(),
+    '/create_category/': CreateCategory(),
+
 }
