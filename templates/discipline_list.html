@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} Disciplines list {% endblock %}
+
+{% block body %}
+    <div style="flex: 1 1 auto">
+        <h1>Disciplines list</h1>
+        <ul>
+            {% for item in object_list %}
+            <li>
+                {{item.name <span>Number of disciplines: {{item.course_count()}}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

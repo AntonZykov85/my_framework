@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %} Categories list {% endblock %}
+
+{% block body %}
+    <div style="flex: 1 1 auto">
+        <h1>Categories list</h1>
+        <table>
+            {% for item in objects_list %}
+            <tr>
+                <td>{{item.name}} <span>Number of disciplines: {{item.course_count()}}</span></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <br>
+        <ul>
+            <li><a href="/courses-list/">List of disciplines</a></li>
+		    <li><a href="/create-category/">Create category</a></li>
+        </ul>
+    </div>
+{% endblock %}

@@ -1,12 +1,13 @@
 from webob import Request, Response
 from .requests import GetRequest, PostRequest
+from .templator import render
 from wsgiref.util import setup_testing_defaults
 import quopri
 
 
 class PageNotFound:
     def __call__(self, request):
-        return '404 WHAT', '404 PAGE Not Found'
+        return '404 WHAT', render('404_not_found.html')
 
 
 class API:
@@ -15,10 +16,10 @@ class API:
         self.front_list = front_items
 
     def __call__(self, environ, start_response):
-        # request = Request(environ)
-        # response = self.handle_request(request)
-        # return response(environ, start_response)
         path = environ['PATH_INFO']
+
+        if not path.endswith('/'):
+            path += '/'
 
         request = {}
 
@@ -32,7 +33,7 @@ class API:
         if method == 'POST':
             data = PostRequest().get_request_parameters(environ)
             request['data'] = data
-            print(f'post request: {API(data)}')
+            print(f'post request: {API.decode_value(data)}')
 
         if method == 'GET':
             req_param = GetRequest.get_request_param(environ)
@@ -50,18 +51,12 @@ class API:
         start_response(code, [('Content-Type', 'text/html')])
         return [body.encode('utf-8')]
 
-    #
-    # def handle_request(self, request):
-    #     user_agent = request.environ.get("HTTP_USER_AGENT", "No user agent found")
-    #     response = Response()
-    #     response.text = f'Hello user {user_agent}'
-    #     return response
 
-    # @staticmethod
-    # def decode_value(data):
-    #     new_data = {}
-    #     for k, v in data.items():
-    #         fixed_value = bytes(v.replace('%', '=').replace("+", " ", 'UTF-8'))
-    #         fixed_value_str = quopri.decodestring(fixed_value).decode('UTF-8')
-    #         new_data[k] = fixed_value_str
-    #     return new_data
+    @staticmethod
+    def decode_value(data):
+        new_data = {}
+        for k, v in data.items():
+            fixed_value = bytes(v.replace('%', '=').replace("+", " "), 'UTF-8')
+            fixed_value_str = quopri.decodestring(fixed_value).decode('UTF-8')
+            new_data[k] = fixed_value_str
+        return

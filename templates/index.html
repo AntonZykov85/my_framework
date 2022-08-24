@@ -2,36 +2,8 @@
 {% block title %} Школа программирования {% endblock %}
 
 {% block body %}
-    <div style="flex: 1 1 auto">
-        <h1>Наши курсы</h1>
-        <p>На все курсы можно записаться в течении года</p>
-        <p>Расписание на {{date}}</p>
-        <table>
-            <tr>
-                <th>Дисциплина</th>
-                <th>Город 1</th>
-                <th>Город 2</th>
-                <th>Город 3</th>
-            </tr>
-            <tr>
-                <td>Основы</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-            </tr>
-            <tr>
-                <td>Aлгоритмы</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-            </tr>
-            <tr>
-                <td>Основы Фреймворков</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-                <td>{{date}} <br> 11:00 - 14:00</td>
-            </tr>
-        </table>
+   <div style="flex: 1 1 auto">
+       <h1>You are welcome!</h1>
         <form action="" method="post">
             <fieldset>
                 <legend>Зарегистрируйтесь</legend>
@@ -41,10 +13,13 @@
                     <input type="text" name="email" id="email">
                 </p>
                 <p><label for="location" class="title">Ближайший центр:</label>
-                    <select name="location" id="location">
-                        <option value="ny">Город 1</option>
-                        <option value="il">Город 2</option>
-                        <option value="ca">Город 3</option>
+ 				    <select name="location" id="location">
+						 <option value="ny">City_1</option>
+						 <option value="il">City_2</option>
+						 <option value="ca">City_3</option>
+						 <option value="il">City_4</option>
+						 <option value="ca">City_5</option>
+
                     </select>
                 </p>
                 <p>
