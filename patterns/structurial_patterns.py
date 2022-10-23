@@ -2,7 +2,7 @@ from time import time
 
 # decorator for routes in application
 
-class Routes:
+class APPRoutes:
     def __int__(self, routes, url):
         """
         :param routes: dict with routes

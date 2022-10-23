@@ -1,5 +1,6 @@
 from main_app.api import API
-from urls import routes, fronts
+from urls import fronts, routes
+# from views import routes
 from wsgiref.simple_server import make_server
 
 app = API(routes, fronts)

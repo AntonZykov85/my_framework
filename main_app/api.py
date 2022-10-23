@@ -1,13 +1,13 @@
 from webob import Request, Response
 from .requests import GetRequest, PostRequest
-from .templator import render
+from .templator import templates_render
 from wsgiref.util import setup_testing_defaults
 import quopri
 
 
 class PageNotFound:
     def __call__(self, request):
-        return '404 WHAT', render('404_not_found.html')
+        return '404 WHAT', templates_render('404_not_found.html')
 
 
 class API:
