@@ -3,7 +3,7 @@ from time import time
 # decorator for routes in application
 
 class APPRoutes:
-    def __int__(self, routes, url):
+    def __init__(self, routes, url):
         """
         :param routes: dict with routes
         :param url: route for page
@@ -17,7 +17,7 @@ class APPRoutes:
 
 
 class Debug:
-    def __int__(self, name):
+    def __init__(self, name):
         self.name = name
 
     def __call__(self, cls):

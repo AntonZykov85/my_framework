@@ -2,11 +2,11 @@ from datetime import date
 from main_app.templator import templates_render
 from patterns.generative_patterns import Core
 from patterns.structurial_patterns import APPRoutes, Debug
-from urls import routes
+# from urls import routes
 
 site = Core()
 # logger = Logger()
-# routes = {}
+routes = {}
 
 
 @APPRoutes(routes=routes, url='/')
