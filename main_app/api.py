@@ -19,7 +19,7 @@ class API:
         path = environ['PATH_INFO']
 
         if not path.endswith('/'):
-            path += '/'
+            path = f'{path}/'
 
         request = {}
 
@@ -32,12 +32,12 @@ class API:
 
         if method == 'POST':
             data = PostRequest().get_request_parameters(environ)
-            request['data'] = data
+            request['data'] = API.decode_value(data)
             print(f'post request: {API.decode_value(data)}')
 
         if method == 'GET':
             req_param = GetRequest.get_request_param(environ)
-            request['get_request_parameters'] = req_param
+            request['get_request_parameters'] = API.decode_value(req_param)
             print(f'get request {req_param}')
 
         if path in self.route_list:

@@ -12,7 +12,7 @@ site = Core()
 @APPRoutes(routes=routes, url='/')
 class Home:
     def __call__(self, request):
-        return '200 OK', templates_render('index.html', data=request.get('data'))
+        return '200 OK', templates_render('index.html', objects_list=site.categories)
 
 
 @APPRoutes(routes=routes, url='/about/')
