@@ -1,0 +1,14 @@
+<{% extends "base.html" %}
+{% block title %} Create category {% endblock %}
+
+{% block body %}
+    <div style="flex: 1 1 auto">
+        <br>
+        <br>
+        <h1>Category creation {{name}}</h1>
+        <form method="post">
+            <input type="text" name="name" placeholder="Name">
+            <button type="submit">Save and back to the main page</button>
+        </form>
+    </div>
+{% endblock %}

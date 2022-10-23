@@ -1,0 +1,16 @@
+<{% extends "base.html" %}
+{% block title %} Create discipline {% endblock %}
+
+{% block body %}
+    <div style="flex: 1 1 auto">
+        <br>
+        <br>
+        <h1>Discipline creation for category{{name}}</h1>
+        <br>
+        <br>
+        <form method="post">
+            <input type="text" name="name" placeholder="Name">
+            <button type="submit">Save and back to the disciplines list</button>
+        </form>
+    </div>
+{% endblock %}
