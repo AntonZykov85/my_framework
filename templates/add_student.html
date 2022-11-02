@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Add studet{% endblock %}
+
+{% block body %}
+<div style="flex: 1 1 auto">
+  		<br>
+			<a href="/student-list/">Students list</a>
+		<br>
+			<a href="/create-student/">Create student</a>
+		<br>
+    <h1>Add student on course</h1>
+    <form method="post">
+        <select size="3" name="course_name">
+            {% for item in courses %}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {% endfor %}
+        </select>
+        <select size="3" name="student_name">
+            {% for item in students %}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

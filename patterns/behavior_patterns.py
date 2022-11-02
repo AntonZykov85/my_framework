@@ -36,13 +36,13 @@ class BaseSerializer:
 #template method pattern
 
 class TemplateView:
-    templates_name = 'template.html'
+    template_name = 'template.html'
 
     def get_context_data(self):
         return {}
 
     def get_template(self):
-        return self.templates_name
+        return self.template_name
 
     def render_template_with_contex(self):
         template_name = self.get_template()
@@ -54,7 +54,7 @@ class TemplateView:
 
 class ListView(TemplateView):
     queryset = []
-    templates_name = 'list.html'
+    template_name = 'list.html'
     context_object_name = 'objects_list'
 
     def get_queryset(self):
@@ -71,7 +71,7 @@ class ListView(TemplateView):
         return context
 
 class CreateView(TemplateView):
-    templates_name = 'create.html'
+    template_name = 'create.html'
 
     @staticmethod
     def get_request_data(request):

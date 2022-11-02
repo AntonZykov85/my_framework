@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Create student {% endblock %}
+
+{% block body %}
+<div style="flex: 1 1 auto">
+    <br>
+    <br>
+    <h3>Student's creation</h3>
+    <br>
+    <br>
+    <h1>Student's creation</h1>
+    <form method="post">
+        <input type="text" name="name" placeholder="Имя">
+        <button type="submit">Save</button>
+    </form>
+    <br>
+    <br>
+    <a href="/students-list/">Students list</a>
+    <br>
+    <a href="/add-student/">Add student on course</a>
+</div>
+{% endblock %}

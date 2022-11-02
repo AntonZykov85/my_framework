@@ -1,6 +1,6 @@
 from datetime import date
 # from views import Home, About, Contacts, NotFound, Datetable, DisciplineList, CreateDiscipline, CreateCategory, CategoriesList, DisciplineCopy
-routes = {}
+# routes = {}
 
 
 def secret_front(request):

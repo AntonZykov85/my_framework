@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %} Students list {% endblock %}
+
+{% block body %}
+<div style="flex: 1 1 auto">
+    <h1>Students list</h1>
+    <br>
+    <table>
+        {% for item in objects_list %}
+        <tr>
+            <td>
+                {{item.name}}
+                {% for course in item.courses %}
+                    {{course.name}}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <br>
+    <a href="/create-student/">Create student</a>
+    <br>
+    <a href="/add-student/">Add student on course</a>
+</div>
+{% endblock %}

@@ -1,9 +1,11 @@
-import copy
-import quopri
+from copy import deepcopy
+from quopri import decodestring
+from my_framework.patterns.behavior_patterns import FileWriter, Subject, ConsoleWriter
 
 
 class User:
-    pass
+    def __init__(self, name):
+        self.name = name
 
 
 class Teacher(User):
@@ -11,7 +13,9 @@ class Teacher(User):
 
 
 class Student(User):
-    pass
+    def __init__(self,name):
+        self.courses = []
+        super().__init__(name)
 
 
 class UserFactory:
@@ -28,14 +32,26 @@ class UserFactory:
 class CoursePrototype:
 
     def clone(self):
-        return copy.deepcopy(self)
+        return deepcopy(self)
 
 
-class Course(CoursePrototype):
+class Course(CoursePrototype, Subject):
     def __int__(self, name, category):
         self.name = name
         self.category = category
         self.category.courses.append(self)
+        self.students = []
+        super().__init__()
+
+    def __getitem__(self, item):
+        return self.students[item]
+
+    def add_student(self, student: Student):
+        self.students.append(student)
+        student.courses.append(self)
+        self.notify()
+
+
 
 
 class InteractiveCourse(Course):
@@ -83,8 +99,8 @@ class Core:
         self.categories = []
 
     @staticmethod
-    def create_user(type_user):
-        return UserFactory.create(type_user)
+    def create_user(type_user, name):
+        return UserFactory.create(type_user, name)
 
     @staticmethod
     def create_category(name, category=None):
@@ -107,37 +123,44 @@ class Core:
                 return _
         return None
 
+    def get_student(self, name):
+        for i in self.students:
+            if i.name == name:
+                return i
+        return None
+
     @staticmethod
     def decode_value(val):
         val_byte = bytes(val.replace('%', '=').replace("+", " "), 'UTF-8')
-        val_decode_str = quopri.decodestring(val_byte)
+        val_decode_str = decodestring(val_byte)
         return val_decode_str.decode('UTF-8')
 
 
-# class SingletonByName(type):
-#
-#     def __init__(cls, name, bases, attrs, **kwargs):
-#         super().__init__(name, bases, attrs)
-#         cls.__instance = {}
-#
-#     def __call__(cls, *args, **kwargs):
-#         name = None
-#         if args:
-#             name = args[0]
-#         if kwargs:
-#             name = kwargs['name']
-#
-#         if name in cls.__instance:
-#             return cls.__instance[name]
-#         else:
-#             cls.__instance[name] = super().__call__(*args, **kwargs)
-#             return cls.__instance[name]
-#
-# class Logger(metaclass=SingletonByName):
-#
-#     def __int__(self, name):
-#         self.name = name
-#
-#     @staticmethod
-#     def log(text):
-#         print('log =>', text)
+class SingletonByName(type):
+    def __init__(cls, name, bases, attrs, **kwargs):
+        super().__init__(name, bases, attrs)
+        cls.__instance = {}
+
+    def __call__(cls, *args, **kwargs):
+        if args:
+            name = args[0]
+        if kwargs:
+            name = kwargs['name']
+
+        if name in cls.__instance:
+            return cls.__instance['name']
+        else:
+            cls.__instance[name] = super().__call__(*args, **kwargs)
+            return cls.__instance[name]
+
+
+#  логгер
+class Logger(metaclass=SingletonByName):
+    def __init__(self, name, writer=ConsoleWriter()):
+        self.name = name
+        self.writer = writer
+
+    def log(self, text):
+        print('log =->', text)
+        text = f'log =-> {text}'
+        self.writer.write(text)

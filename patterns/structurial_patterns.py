@@ -26,8 +26,9 @@ class Debug:
                 start = time()
                 result = method(*args, **kwargs)
                 finish = time()
-                delta = start - finish
-                print(f'debug => {self.name} done {delta:2.2.f} ms')
+                delta = finish - start
+
+                print(f'debug => {self.name} done {delta:2.2f} ms')
                 return result
             return timed
         return timeit(cls)
