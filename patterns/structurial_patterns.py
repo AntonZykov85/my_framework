@@ -15,20 +15,18 @@ class APPRoutes:
         """ get callble class"""
         self.routes[self.url] = cls()
 
-
 class Debug:
     def __init__(self, name):
         self.name = name
-
     def __call__(self, cls):
         def timeit(method):
-            def timed(*args, **kwargs):
-                start = time()
-                result = method(*args, **kwargs)
-                finish = time()
-                delta = finish - start
-
-                print(f'debug => {self.name} done {delta:2.2f} ms')
+            def timed(*args, **kw):
+                ts = time()
+                result = method(*args, **kw)
+                te = time()
+                delta = te - ts
+                print(f'debug --> {self.name} done {delta:2.2f} ms')
                 return result
+
             return timed
         return timeit(cls)
