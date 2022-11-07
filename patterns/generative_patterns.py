@@ -139,11 +139,11 @@ class SingletonByName(type):
         if kwargs:
             name = kwargs['name']
 
-            if name in cls.__instance:
-                return cls.__instance[name]
-            else:
-                cls.__instance[name] = super().__call__(*args, **kwargs)
-                return cls.__instance[name]
+        if name in cls.__instance:
+            return cls.__instance[name]
+        else:
+            cls.__instance[name] = super().__call__(*args, **kwargs)
+            return cls.__instance[name]
 
 
 class Logger(metaclass=SingletonByName):

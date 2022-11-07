@@ -1,7 +1,4 @@
-from webob import Request, Response
 from .requests import GetRequest, PostRequest
-from .templator import templates_render
-from wsgiref.util import setup_testing_defaults
 import quopri
 
 
@@ -22,7 +19,6 @@ class API:
 
         request = {}
         method = environ['REQUEST_METHOD']
-
         request['method'] = method
 
         if method == 'POST':
@@ -32,7 +28,7 @@ class API:
         if method == 'GET':
             request_params = GetRequest().get_request_param(environ)
             request['request_params'] = API.decode_value(request_params)
-            print(f'get GET-parametres:'
+            print(f'Get GET-params:'
                   f' {API.decode_value(request_params)}')
 
         if path in self.routes_lst:
@@ -66,7 +62,6 @@ class DebugApplication(API):
         print('DEBUG MODE')
         print(env)
         return self.application(env, start_response)
-
 
 class FakeApplication(API):
 

@@ -2,14 +2,21 @@
 {% block title %} Disciplines list {% endblock %}
 
 {% block body %}
-    <div style="flex: 1 1 auto">
-        <h1>Disciplines list</h1>
-        <ul>
-            {% for item in object_list %}
-            <li>
-                {{item.name <span>Number of disciplines: {{item.course_count()}}</span>
-            </li>
-            {% endfor %}
-        </ul>
+    <div>
+        <a href="/">back to main</a>
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+        <a href="/create_discipline/?id={{id}}">Create new disc</a>
+        <br>
+        <h1>Disciplines list for category "{{name}}"</h1>
+        {% for item in objects_list %}
+        <li>
+            {{item.name}} <span><a href="/discipline_copy/?name={{item.name}}">Copy</a></span>
+        </li>
+        {% endfor %}
     </div>
 {% endblock %}

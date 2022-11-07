@@ -71,15 +71,18 @@ class CreateDiscipline:
 
             if self.category_id != -1:
                 category = site.find_category_by_id(int(self.category_id))
+
                 course = site.create_course('record', name, category)
+
                 course.observers.append(email_notifer)
                 course.observers.append(sms_notifer)
+
                 site.courses.append(course)
 
             return '200 OK', templates_render('discipline_list.html',
-                                              objects_list=category.courses,
-                                              name=category.name,
-                                              id=category.id)
+                                    objects_list=category.courses,
+                                    name=category.name,
+                                    id=category.id)
 
         else:
             try:
@@ -87,10 +90,10 @@ class CreateDiscipline:
                 category = site.find_category_by_id(int(self.category_id))
 
                 return '200 OK', templates_render('discipline_create.html',
-                                                  name=category.name,
-                                                  id=category.id)
+                                        name=category.name,
+                                        id=category.id)
             except KeyError:
-                return '200 OK', 'Sorry, these category are not exists...'
+                return '200 OK', 'No categories have been added yet'
 
 
 @APPRoutes(routes=routes, url='/create_category/')
@@ -147,7 +150,7 @@ class DisciplineCopy:
             return '200 OK', 'No courses have been added yet'
 
 
-@APPRoutes(routes=routes, url='/student-list/')
+@APPRoutes(routes=routes, url='/students-list/')
 class StudentListView(ListView):
     queryset = site.students
     template_name = 'students_list.html'

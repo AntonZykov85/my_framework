@@ -29,4 +29,5 @@ class Debug:
                 return result
 
             return timed
+
         return timeit(cls)
