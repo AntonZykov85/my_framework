@@ -1,8 +1,9 @@
 from datetime import date
 from main_app.templator import templates_render
-from patterns.generative_patterns import Core, Logger
+from patterns.generative_patterns import Core, Logger, MapperRegistry
 from patterns.structurial_patterns import APPRoutes, Debug
-from patterns.behavior_patterns import EmailNotifier, SmsNotifier, ListView, CreateView, BaseSerializer
+from patterns.behavior_patterns import EmailNotifier, SmsNotifier, ListView, CreateView, BaseSerializer, TemplateView
+from patterns.architectural_system_pattern import UnitOfWork
 
 # from urls import routes
 
@@ -12,6 +13,8 @@ routes = {}
 email_notifer = EmailNotifier()
 sms_notifer = SmsNotifier()
 
+UnitOfWork.new_current()
+UnitOfWork.get_current().set_mapper_registry(MapperRegistry)
 
 @APPRoutes(routes=routes, url='/')
 class Home:
@@ -152,8 +155,11 @@ class DisciplineCopy:
 
 @APPRoutes(routes=routes, url='/students-list/')
 class StudentListView(ListView):
-    queryset = site.students
     template_name = 'students_list.html'
+
+    def get_queryset(self):
+        mapper = MapperRegistry.get_current_mapper('student')
+        return mapper.all()
 
 
 @APPRoutes(routes=routes, url='/create-student/')
@@ -165,6 +171,8 @@ class StudentCreateView(CreateView):
         name = site.decode_value(name)
         new_obj = site.create_user('student', name)
         site.students.append(new_obj)
+        new_obj.mark_new()
+        UnitOfWork.get_current().commit()
 
 
 @APPRoutes(routes=routes, url='/add-student/')
